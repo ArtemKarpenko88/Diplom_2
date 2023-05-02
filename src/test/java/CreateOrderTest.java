@@ -10,7 +10,6 @@ import static org.apache.http.HttpStatus.*;
 public class CreateOrderTest {
     private Order order;
     private OrderClient orderClient;
-
     private UserClient userClient;
     private String accessToken;
 
@@ -74,6 +73,7 @@ public class CreateOrderTest {
 
     @After
     public void tearDown() {
-        userClient.delete(accessToken);
+        userClient
+                .delete(accessToken);
     }
 }

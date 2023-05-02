@@ -42,16 +42,14 @@ public class CreateUserTest {
         userClient.createUser(user);
         Response doubleReg = userClient.createUser(user);
         String message = doubleReg.jsonPath().getString("message");
-        accessToken = doubleReg.body().jsonPath().getString("accessToken");
         int statusCode = doubleReg.getStatusCode();
         assertEquals(SC_FORBIDDEN, statusCode);
-        accessToken = doubleReg.body().jsonPath().getString("accessToken");
         assertEquals(sameUserErrorMessage, message);
     }
-
     @After
     public void tearDown() {
-        userClient.delete(accessToken);
+        userClient
+                .delete(accessToken);
     }
 
 }

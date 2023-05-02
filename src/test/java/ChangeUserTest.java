@@ -30,24 +30,24 @@ public class ChangeUserTest {
     @DisplayName("Изменение данных")
     public void changeUserDataWithLoginTest() {
         User updateUser = Generator.getRandomUser();
-        Response UpdateUserResponse = userClient.updateUser(updateUser, accessToken);
-        int statusCode = UpdateUserResponse.getStatusCode();
+        Response updateUserResponse = userClient.updateUser(updateUser, accessToken);
+        int statusCode = updateUserResponse.getStatusCode();
         assertEquals(SC_OK, statusCode);
-        boolean isUpdateUserResponseSuccess = UpdateUserResponse.jsonPath().getBoolean("success");
+        boolean isUpdateUserResponseSuccess = updateUserResponse.jsonPath().getBoolean("success");
         assertTrue(isUpdateUserResponseSuccess);
-        String email = UpdateUserResponse.jsonPath().getString("user.email");
+        String email = updateUserResponse.jsonPath().getString("user.email");
         assertEquals(updateUser.getEmail().toLowerCase(), email);
-        String name = UpdateUserResponse.jsonPath().getString("user.name");
+        String name = updateUserResponse.jsonPath().getString("user.name");
         assertEquals(updateUser.getName(), name);
     }
 
     @Test
     @DisplayName("Изменение данных без авторизации")
     public void changeUserDataWithoutLoginTest() {
-        Response UpdateUserResponse = userClient.updateUser(Generator.getRandomUser(), "");
-        int statusCode = UpdateUserResponse.getStatusCode();
+        Response updateUserResponse = userClient.updateUser(Generator.getRandomUser(), "");
+        int statusCode = updateUserResponse.getStatusCode();
         assertEquals(SC_UNAUTHORIZED, statusCode);
-        String message = UpdateUserResponse.jsonPath().getString("message");
+        String message = updateUserResponse.jsonPath().getString("message");
         assertEquals(authErrorMessage, message);
     }
 
@@ -69,10 +69,10 @@ public class ChangeUserTest {
     public void changeUserPasswordTest() {
         String newPassword = Generator.getRandomUser().getPassword();
         User newUser = new User(user.getEmail(), newPassword, user.getName());
-        var UpdateUserResponse = userClient.updateUser(newUser, accessToken);
-        boolean responseSuccess = UpdateUserResponse.jsonPath().getBoolean("success");
+        var updateUserResponse = userClient.updateUser(newUser, accessToken);
+        boolean responseSuccess = updateUserResponse.jsonPath().getBoolean("success");
         Assert.assertTrue(responseSuccess);
-        int statusCode = UpdateUserResponse.getStatusCode();
+        int statusCode = updateUserResponse.getStatusCode();
         Assert.assertEquals(statusCode, SC_OK);
     }
 

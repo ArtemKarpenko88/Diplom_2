@@ -4,7 +4,7 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 
 public class OrderClient extends SpecificationConstructor{
-    private final String ORDERS = "orders";
+    private final static String ORDERS = "orders";
 
     @Step("Create Order")
     public Response orderCreate(Order order, String token){

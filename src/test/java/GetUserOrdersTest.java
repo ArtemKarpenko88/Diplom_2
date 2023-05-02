@@ -61,6 +61,7 @@ public class GetUserOrdersTest {
 
     @After
     public void tearDown() {
-        userClient.delete(accessToken);
+        userClient
+                .delete(accessToken);
     }
 }
