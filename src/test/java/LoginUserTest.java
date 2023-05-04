@@ -47,11 +47,13 @@ public class LoginUserTest {
 
         int statusCode = loginResponse.getStatusCode();
         assertEquals(SC_UNAUTHORIZED, statusCode);
-
         String message = loginResponse.body().jsonPath().getString("message");
         assertEquals(loginErrorMessage, message);
+        Response LogInForToken = userClient.login(UserCredentials.from(user));
+        accessToken = LogInForToken.body().jsonPath().getString("accessToken");
+        assertNotNull(accessToken);
     }
-
+    //
     @After
     public void tearDown() {
         userClient
