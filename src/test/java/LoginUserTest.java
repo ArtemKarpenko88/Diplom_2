@@ -49,8 +49,8 @@ public class LoginUserTest {
         assertEquals(SC_UNAUTHORIZED, statusCode);
         String message = loginResponse.body().jsonPath().getString("message");
         assertEquals(loginErrorMessage, message);
-        Response LogInForToken = userClient.login(UserCredentials.from(user));
-        accessToken = LogInForToken.body().jsonPath().getString("accessToken");
+        Response logInForToken = userClient.login(UserCredentials.from(user));
+        accessToken = logInForToken.body().jsonPath().getString("accessToken");
         assertNotNull(accessToken);
     }
     //
